@@ -33,8 +33,15 @@ namespace WpfLabBat
         {
             get
             {
-                return _CarList
-                    .Where(c => (SelectedLegko == "Все виды" || c.Legko == SelectedLegko));
+                var res = _CarList;
+
+                
+                res.Where(c => (SelectedLegko == "Все виды" || c.Legko == SelectedLegko));
+                if (SearchFilter != "")
+                    res = res.Where(c => c.Name.IndexOf(SearchFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+                if (SortAsc) res = res.OrderBy(c => c.Name);
+                else res = res.OrderByDescending(c => c.Name);
+                return res;
             }
             set
             {
@@ -69,5 +76,25 @@ namespace WpfLabBat
             SelectedLegko = (LegkoFilterComboBox.SelectedItem as Legko).Title;
             Invalidate();
         }
+
+        private void SearchFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        private string SearchFilter = "";       
+        
+        private void SearchFilter_KeyUp(object sender, KeyEventArgs e)
+        {
+            SearchFilter = SearchFilterTextBox.Text;
+            Invalidate();
+        }
+        private bool SortAsc = true;
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            SortAsc = (sender as RadioButton).Tag.ToString() == "1";
+            Invalidate();
+        }
     }
+
 }

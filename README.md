@@ -30,7 +30,7 @@
 
 # Цели и задачи:
 
-Создать фильтрацию данных.
+Используя материалы лекций Фильтрация данных и Поиск, сортировка доработать WPF-приложение из прошлой лабы.
  # Краткий материал.
 
 В приложениях часто требуется отфильтровать данные либо по словарному полю, либо по каким-либо условиям. На втором варианте мы пока останавливаться не будем - сделаем фильтрацию по словарю.
@@ -42,14 +42,6 @@
 Создал фильтрацию данных.
      
     ```
-    <Window x:Class="WpfLabBat.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfLabBat"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -71,7 +63,7 @@
     ItemsSource="{Binding CarList}">
             <DataGrid.Columns>
                 <DataGridTextColumn
-            Header="Модель"
+            Header="Модель (марка)"
             Binding="{Binding Name}"/>
                 <DataGridTextColumn
             Header="Скорость"
@@ -91,6 +83,7 @@
             <Label 
     Content="Виды:"
     VerticalAlignment="Center"/>
+            
 
             <ComboBox
     Name="LegkoFilterComboBox"
@@ -107,10 +100,29 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <Label 
+    Content="Искать" 
+    VerticalAlignment="Center"/>
+            <TextBox
+    Width="200"
+    VerticalAlignment="Center"
+    x:Name="SearchFilterTextBox" 
+    KeyUp="SearchFilter_KeyUp" TextChanged="SearchFilterTextBox_TextChanged"/>
+            <RadioButton
+    GroupName="Name"
+    Tag="1"
+    Content="по возрастанию"
+    IsChecked="True" 
+    Checked="RadioButton_Checked"
+    VerticalAlignment="Center"/>
+            <RadioButton
+    GroupName="Name"
+    Tag="2"
+    Content="по убыванию"
+    Checked="RadioButton_Checked"
+    VerticalAlignment="Center"/>
         </WrapPanel>
     </Grid>
-</Window>
-
 
 
 ![](./Lab8_3.jpg)
